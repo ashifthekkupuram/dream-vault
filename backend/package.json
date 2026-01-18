@@ -34,6 +34,9 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
+    "@types/cors": "^2.8.19",
+    "better-auth": "^1.4.15",
+    "cors": "^2.8.5",
     "drizzle-orm": "^0.45.1",
     "express": "^5.2.1"
   }
