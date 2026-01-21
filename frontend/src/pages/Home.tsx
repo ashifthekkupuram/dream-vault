@@ -1,8 +1,13 @@
-import React from 'react'
+import { authClient } from '../lib/auth-client'
 
 const Home = () => {
+
+  const onSingout = async () => {
+    await authClient.signOut()
+  }
+
   return (
-    <div>Home</div>
+    <div><button onClick={onSingout} >Signout</button></div>
   )
 }
 

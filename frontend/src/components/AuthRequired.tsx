@@ -5,7 +5,7 @@ import { authClient } from "../lib/auth-client";
 const AuthRequired = () => {
   const { data: session } = authClient.useSession();
 
-  return session ? <Outlet /> : <Navigate to="/sign-in" />;
+  return session ? <Outlet /> : <Navigate to="/signin" />;
 };
 
 export default AuthRequired;
