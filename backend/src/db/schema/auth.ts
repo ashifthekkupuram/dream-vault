@@ -1,6 +1,7 @@
 import { boolean, pgTable, timestamp, text, index } from 'drizzle-orm/pg-core';
 
 import { relations } from 'drizzle-orm';
+import { dreamTable } from './dream';
 
 const timestamps = {
   createdAt: timestamp('createdAt').defaultNow().notNull(),
@@ -68,10 +69,11 @@ export const verificationTable = pgTable(
   (table) => [index('verification_identifier_idx').on(table.identifier)],
 );
 
-// One to Many, A User can have many Accounts and Sessions
+// One to Many, A User can have many Accounts, Sessions and Dreams
 export const userRelations = relations(userTable, ({ many }) => ({
   accounts: many(accountTable),
   sessions: many(sessionTable),
+  dreams: many(dreamTable),
 }));
 
 // Many to One, Lot of Sessions can only have one User

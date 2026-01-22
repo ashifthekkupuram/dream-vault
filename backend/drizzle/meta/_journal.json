@@ -8,6 +8,13 @@
       "when": 1768645538652,
       "tag": "0000_supreme_eternity",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1769074127733,
+      "tag": "0001_cute_shinko_yamashiro",
+      "breakpoints": true
     }
   ]
 }
