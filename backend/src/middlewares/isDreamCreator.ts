@@ -12,17 +12,17 @@ const isDreamCreator = asyncHandler(async (req, res, next) => {
     headers: fromNodeHeaders(req.headers),
   });
 
-  if (!id || typeof id !== 'string') {
+  if (!id) {
     return res.status(404).json({
       success: false,
-      message: 'Invalid Dream ID',
+      message: 'Dream ID required',
     });
   }
 
   const query: DreamType[] = await db
     .select()
     .from(dreamTable)
-    .where(eq(dreamTable.id, id));
+    .where(eq(dreamTable.id, Number(id)));
 
   const dream: DreamType = query[0];
 

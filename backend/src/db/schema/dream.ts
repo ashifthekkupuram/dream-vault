@@ -5,6 +5,7 @@ import {
   timestamp,
   pgEnum,
   index,
+  integer,
 } from 'drizzle-orm/pg-core';
 
 import { userTable } from './auth';
@@ -39,7 +40,7 @@ export const moodEnum = pgEnum('mood', [
 export const dreamTable = pgTable(
   'dream',
   {
-    id: text('id').primaryKey(),
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
     title: text('title').notNull(),
     content: text('content').notNull(),
     tags: text('tags').array().default([]),
