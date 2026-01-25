@@ -4,6 +4,7 @@ import cors from 'cors';
 import { toNodeHandler } from 'better-auth/node';
 
 import { auth } from './lib/auth';
+import errorHandler from './utils/errorHandler';
 import dreamRouter from './routes/dream.route';
 
 const app = express();
@@ -28,5 +29,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/dream/', dreamRouter);
+
+// Error Handler
+app.use(errorHandler);
 
 export default app;
