@@ -6,6 +6,10 @@ import AuthWrapper from "./components/AuthWrapper";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import SidebarContainer from "./components/Sidebar/SidebarContainer";
+import Dreams from "./pages/Dreams";
+
+import { ThemeProvider } from "./context/themeProvider";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -19,8 +23,17 @@ const App = () => {
           children: [
             // Authentication required to access these pages
             {
-              path: "/",
-              element: <Home />,
+              element: <SidebarContainer />,
+              children: [
+                {
+                  path: "/",
+                  element: <Home />,
+                },
+                {
+                  path: "/dreams",
+                  element: <Dreams />,
+                },
+              ],
             },
           ],
         },
@@ -43,7 +56,11 @@ const App = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider defaultTheme="dark">
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 };
 
 export default App;
