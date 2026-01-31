@@ -23,11 +23,7 @@ import { Button } from "../components/ui/button";
 import { authClient } from "../lib/auth-client";
 import { Alert, AlertDescription } from "../components/ui/alert";
 
-const formSchema = z.object({
-  name: z.string().min(4, "Name must have 4 characters"),
-  email: z.email(),
-  password: z.string().min(8, "Password must have 8 characters"),
-});
+import { signUpSchema } from "../schemas";
 
 const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,8 +31,8 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -44,7 +40,7 @@ const SignUp = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
     await authClient.signUp.email(values, {
       onRequest: () => {
         setLoading(true);

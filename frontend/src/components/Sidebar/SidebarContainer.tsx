@@ -7,13 +7,13 @@ import Navbar from "../Navbar";
 const SidebarContainer = () => {
   return (
     <SidebarProvider>
-      <SidebarApp variant="inset" />
-        <SidebarInset className="m-0 border-0" >
-          <Navbar />
-          <div className="m-2" >
-            <Outlet />
-          </div>
-        </SidebarInset>
+      <SidebarApp variant="" />
+      <SidebarInset>
+        <Navbar />
+        <div className="m-2">
+          <Outlet />
+        </div>
+      </SidebarInset>
     </SidebarProvider>
   );
 };

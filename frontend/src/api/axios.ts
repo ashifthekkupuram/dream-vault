@@ -10,6 +10,9 @@ export const UseAuthenticatedAxios = () => {
   const instance = axios.create({
     baseURL,
     withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
   instance.interceptors.request.use(
