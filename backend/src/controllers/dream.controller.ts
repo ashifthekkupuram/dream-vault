@@ -53,7 +53,7 @@ export const createDream = asyncHandler(async (req, res) => {
 
   const [newDream]: DreamType[] = await db
     .insert(dreamTable)
-    .values(values)
+    .values({ ...values, dreamedOn: new Date(values.dreamedOn || new Date()) })
     .returning();
 
   if (!newDream) {
@@ -76,7 +76,7 @@ export const updateDream = asyncHandler(async (req, res) => {
 
   const [updatedDream]: DreamType[] = await db
     .update(dreamTable)
-    .set(body)
+    .set({ ...body, dreamedOn: new Date(body.dreamedOn || new Date()) })
     .where(eq(dreamTable.id, id))
     .returning();
 
