@@ -2,9 +2,8 @@ import { useState } from "react";
 import { UseAuthenticatedAxios } from "../api/axios";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
-import type { DreamType } from "../types/dream.type";
 import { authClient } from "../lib/auth-client";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useDreamDelete = () => {
   const [loading, setLoading] = useState<boolean>(false);
