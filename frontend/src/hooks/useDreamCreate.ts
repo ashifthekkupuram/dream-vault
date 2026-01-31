@@ -1,11 +1,11 @@
 import { useState } from "react";
 import type z from "zod";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 
 import { UseAuthenticatedAxios } from "../api/axios";
 import type { dreamScheme } from "../schemas";
-import { AxiosError } from "axios";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
 
 const useDreamCreate = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,7 +13,7 @@ const useDreamCreate = () => {
 
   const axios = UseAuthenticatedAxios();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const createDream = async (values: z.infer<typeof dreamScheme>) => {
     setLoading(true);
@@ -23,7 +23,7 @@ const useDreamCreate = () => {
         ...values,
         dreamedOn: new Date(values.dreamedOn),
       });
-      navigate("/dreams")
+      navigate("/dreams");
       toast.success("Dream has been recorded");
     } catch (error) {
       setError(
