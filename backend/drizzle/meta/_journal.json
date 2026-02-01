@@ -8,6 +8,13 @@
       "when": 1769189410917,
       "tag": "0000_sturdy_speed",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1769936044721,
+      "tag": "0001_calm_king_cobra",
+      "breakpoints": true
     }
   ]
 }

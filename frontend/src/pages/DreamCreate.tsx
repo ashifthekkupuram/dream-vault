@@ -17,7 +17,6 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  InputGroupTextarea,
 } from "../components/ui/input-group";
 import { Card } from "../components/ui/card";
 import { Checkbox } from "../components/ui/checkbox";
@@ -41,6 +40,38 @@ import { ScrollArea, ScrollBar } from "../components/ui/scroll-area";
 import { cn } from "../lib/utils";
 import { dreamScheme, MoodsEnum } from "../schemas";
 import useDreamCreate from "../hooks/useDreamCreate";
+import { Editor } from "../components/blocks/editor-00/editor";
+import type { SerializedEditorState } from "lexical";
+
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "What have i dreamed today :/",
+            type: "text",
+            version: 1,
+          },
+        ],
+        direction: "ltr",
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+      },
+    ],
+    direction: "ltr",
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
+} as unknown as SerializedEditorState;
 
 const DreamCreate = () => {
   const { loading, error, createDream } = useDreamCreate();
@@ -52,8 +83,7 @@ const DreamCreate = () => {
   const form = useForm<z.infer<typeof dreamScheme>>({
     resolver: zodResolver(dreamScheme),
     defaultValues: {
-      title: "",
-      content: "",
+      content: JSON.stringify(initialValue),
       dreamedOn: new Date(),
       emotion: "",
       isLucid: false,
@@ -107,45 +137,18 @@ const DreamCreate = () => {
       </div>
       <form className="px-12" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
-          {/* Title Field */}
-          <Controller
-            name="title"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-state={fieldState.invalid}>
-                <FieldLabel htmlFor="title">Title</FieldLabel>
-                <Input
-                  {...field}
-                  id="title"
-                  aria-invalid={fieldState.invalid}
-                  autoComplete="off"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
           {/* Content Field */}
           <Controller
             name="content"
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-state={fieldState.invalid}>
-                <FieldLabel htmlFor="content">Content</FieldLabel>
-                <InputGroup>
-                  <InputGroupTextarea
-                    {...field}
-                    id="content"
-                    aria-invalid={fieldState.invalid}
-                    rows={6}
-                  />
-                  <InputGroupAddon align="block-end">
-                    <InputGroupText className="tabular-nums">
-                      {field.value.length} characters
-                    </InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
+                <Editor
+                  editorSerializedState={JSON.parse(field.value)}
+                  onSerializedChange={(value) =>
+                    field.onChange(JSON.stringify(value))
+                  }
+                />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

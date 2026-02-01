@@ -1,0 +1,1 @@
+ALTER TABLE "dream" DROP COLUMN "title";

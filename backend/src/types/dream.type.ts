@@ -16,7 +16,6 @@ type MOODS =
   | 'Curious';
 
 export type DreamBodyType = {
-  title: string;
   content: string;
   tags?: string[] | null | undefined;
   isLucid?: boolean | undefined;

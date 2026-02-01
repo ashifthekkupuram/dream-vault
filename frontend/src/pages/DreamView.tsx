@@ -3,7 +3,6 @@ import { AxiosError } from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Pencil } from "lucide-react";
 import { format } from "date-fns";
-
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Spinner } from "../components/ui/spinner";
@@ -11,6 +10,7 @@ import { Spinner } from "../components/ui/spinner";
 import { EMOJIES, type MoodType } from "../types/dream.type";
 import { UseAuthenticatedAxios } from "../api/axios";
 import { cn } from "../lib/utils";
+import ContentViewer from "../components/ContentViewer";
 
 const DreamView = () => {
   const { dreamId } = useParams();
@@ -45,8 +45,7 @@ const DreamView = () => {
           {" "}
           <ArrowLeft />{" "}
         </Button>
-        {/* Showing Title */}
-        <h3 className="font-semibold text-2xl">{dream && dream.title}</h3>
+        <h3 className="font-semibold text-2xl">View Dream</h3>
         {dream && (
           <Button
             onClick={() => navigate(`/dream-edit/${dream.id}`)}
@@ -110,9 +109,7 @@ const DreamView = () => {
             </span>
           </span>
           {/* Showing Content */}
-          <div className="mt-5">
-            <p>{dream.content}</p>
-          </div>
+          <ContentViewer editorState={dream.content} />
         </div>
       ) : (
         <div className="flex justify-center items-center w-full mt-10 capitalize text-xl font-light">

@@ -30,11 +30,11 @@ const DreamCardSkeleton = () => {
         </div>
       </CardContent>
       <CardHeader>
-        <CardTitle className="truncate">
-          <Skeleton className="h-4 w-[140px] rounded-full bg-muted" />
-        </CardTitle>
         <CardDescription className="truncate">
-          <Skeleton className="h-4 w-full rounded-full bg-muted" />
+          <Skeleton className="h-5 w-full rounded-full bg-muted" />
+        </CardDescription>
+        <CardDescription className="truncate">
+          <Skeleton className="h-5 w-full rounded-full bg-muted" />
         </CardDescription>
         <div className="flex w-full justify-start items-center gap-2 overflow-hidden">
           {[1, 2, 3, 4, 5].map((_, index) => (

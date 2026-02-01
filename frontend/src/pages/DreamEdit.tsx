@@ -46,6 +46,38 @@ import { dreamScheme, MoodsEnum } from "../schemas";
 import { UseAuthenticatedAxios } from "../api/axios";
 import useDreamEdit from "../hooks/useDreamEdit";
 import type { DreamType } from "../types/dream.type";
+import type { SerializedEditorState } from "lexical";
+import { Editor } from "../components/blocks/editor-00/editor";
+
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "What have i dreamed today :/",
+            type: "text",
+            version: 1,
+          },
+        ],
+        direction: "ltr",
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+      },
+    ],
+    direction: "ltr",
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
+} as unknown as SerializedEditorState;
 
 const DreamEdit = () => {
   const { loading, error: editingError, editDream } = useDreamEdit();
@@ -64,7 +96,6 @@ const DreamEdit = () => {
       try {
         const response = await axios.get(`/dream/${dreamId}`);
         const data: DreamType = response.data.data;
-        form.setValue("title", data.title);
         form.setValue("content", data.content);
         form.setValue("dreamedOn", new Date(data.dreamedOn));
         form.setValue("emotion", data.emotion);
@@ -88,8 +119,7 @@ const DreamEdit = () => {
   const form = useForm<z.infer<typeof dreamScheme>>({
     resolver: zodResolver(dreamScheme),
     defaultValues: {
-      title: "",
-      content: "",
+      content: JSON.stringify(initialValue),
       dreamedOn: new Date(),
       emotion: "",
       isLucid: false,
@@ -140,8 +170,7 @@ const DreamEdit = () => {
       form.getValues("emotion") === dream.emotion &&
       form.getValues("isLucid") === dream.isLucid &&
       form.getValues("mood") === dream.mood &&
-      form.getValues("tags") === dream.tags &&
-      form.getValues("title") === dream.title);
+      form.getValues("tags") === dream.tags);
 
   return (
     <div className="container mx-auto">
@@ -167,45 +196,18 @@ const DreamEdit = () => {
       ) : dream ? (
         <form className="px-12" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
-            {/* Title Field */}
-            <Controller
-              name="title"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-state={fieldState.invalid}>
-                  <FieldLabel htmlFor="title">Title</FieldLabel>
-                  <Input
-                    {...field}
-                    id="title"
-                    aria-invalid={fieldState.invalid}
-                    autoComplete="off"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
             {/* Content Field */}
             <Controller
               name="content"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-state={fieldState.invalid}>
-                  <FieldLabel htmlFor="content">Content</FieldLabel>
-                  <InputGroup>
-                    <InputGroupTextarea
-                      {...field}
-                      id="content"
-                      aria-invalid={fieldState.invalid}
-                      rows={6}
-                    />
-                    <InputGroupAddon align="block-end">
-                      <InputGroupText className="tabular-nums">
-                        {field.value.length} characters
-                      </InputGroupText>
-                    </InputGroupAddon>
-                  </InputGroup>
+                  <Editor
+                    editorSerializedState={JSON.parse(field.value)}
+                    onSerializedChange={(value) =>
+                      field.onChange(JSON.stringify(value))
+                    }
+                  />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}

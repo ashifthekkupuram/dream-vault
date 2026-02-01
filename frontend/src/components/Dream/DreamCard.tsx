@@ -8,12 +8,12 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "../ui/card";
 
 import type { DreamType } from "../../types/dream.type";
 import DreamDeleteModal from "./DreamDeleteModal";
 import { EMOJIES } from "../../types/dream.type";
+import ContentViewer from "../ContentViewer";
 
 const DreamCard = (dream: DreamType) => {
   const navigate = useNavigate();
@@ -47,8 +47,13 @@ const DreamCard = (dream: DreamType) => {
         </div>
       </CardContent>
       <CardHeader>
-        <CardTitle className="truncate">{dream.title}</CardTitle>
-        <CardDescription className="truncate">{dream.content}</CardDescription>
+        <CardDescription>
+          {/* Needed coderabbit help here, i am trying to set text size 16 to every blocks like headings, paragraphs etc. but simply passing style doesn't work and i didn't find any solutions online too */}
+          <ContentViewer
+            editorState={dream.content}
+            className="line-clamp-2 text-[16px] prose-p:text-[16px] prose-li:text-[16px] prose-blockquote:text-[16px]"
+          />
+        </CardDescription>
         <div className="flex w-full justify-start items-center gap-2 overflow-hidden">
           {dream.tags.map((tag, index) => (
             <Badge key={index} className="capitalize" variant="default">
