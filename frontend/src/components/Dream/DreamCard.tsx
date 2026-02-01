@@ -48,10 +48,9 @@ const DreamCard = (dream: DreamType) => {
       </CardContent>
       <CardHeader>
         <CardDescription>
-          {/* Needed coderabbit help here, i am trying to set text size 16 to every blocks like headings, paragraphs etc. but simply passing style doesn't work and i didn't find any solutions online too */}
           <ContentViewer
             editorState={dream.content}
-            className="line-clamp-2 text-[16px] prose-p:text-[16px] prose-li:text-[16px] prose-blockquote:text-[16px]"
+            className="line-clamp-2 prose-base **:text-[16px]!"
           />
         </CardDescription>
         <div className="flex w-full justify-start items-center gap-2 overflow-hidden">
