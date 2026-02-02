@@ -65,7 +65,7 @@ export function Plugins() {
         <RichTextPlugin
           contentEditable={
             <div className="">
-              <div className="" ref={onRef}>
+              <div className="min-h-[500px]" ref={onRef}>
                 <ContentEditable placeholder={"Start typing ..."} />
               </div>
             </div>
