@@ -17,7 +17,7 @@ const useDreamEdit = () => {
 
   const editDream = async (
     values: z.infer<typeof dreamScheme>,
-    dreamId: string,
+    dreamId: number,
   ) => {
     setLoading(true);
     setError(null);

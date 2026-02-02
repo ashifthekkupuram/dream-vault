@@ -50,7 +50,7 @@ const DreamCard = (dream: DreamType) => {
         <CardDescription>
           <ContentViewer
             editorState={dream.content}
-            className="line-clamp-2 prose-base **:text-[16px]!"
+            className="line-clamp-2 prose-base **:text-[16px]! **:font-normal!"
           />
         </CardDescription>
         <div className="flex w-full justify-start items-center gap-2 overflow-hidden">
