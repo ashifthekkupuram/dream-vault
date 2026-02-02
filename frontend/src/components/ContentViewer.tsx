@@ -21,6 +21,7 @@ const ContentViewer = ({ editorState, className }: Props) => {
       }}
     >
       { /* Experimental only works with content starts with paragraphs */ }
+      { /* Asking code rabbit to find a solution in the PR */ }
       <RichTextPlugin
         ErrorBoundary={LexicalErrorBoundary}
         contentEditable={
