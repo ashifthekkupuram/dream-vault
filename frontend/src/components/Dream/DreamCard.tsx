@@ -48,6 +48,7 @@ const DreamCard = (dream: DreamType) => {
       </CardContent>
       <CardHeader>
         <CardDescription>
+          { /* Only works with content starts with parapgraphs others throws error */ }
           <ContentViewer
             editorState={dream.content}
             className="line-clamp-2 prose-base **:text-[16px]! **:font-normal!"
