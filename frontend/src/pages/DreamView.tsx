@@ -109,7 +109,7 @@ const DreamView = () => {
             </span>
           </span>
           {/* Showing Content */}
-          <ContentViewer editorState={dream.content} />
+          <ContentViewer editorState={dream.content} inText={false} />
         </div>
       ) : (
         <div className="flex justify-center items-center w-full mt-10 capitalize text-xl font-light">

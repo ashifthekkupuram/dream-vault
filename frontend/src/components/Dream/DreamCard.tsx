@@ -48,10 +48,7 @@ const DreamCard = (dream: DreamType) => {
       </CardContent>
       <CardHeader>
         <CardDescription>
-          <ContentViewer
-            editorState={dream.content}
-            className="line-clamp-2 prose-base **:text-[16px]! **:font-normal!"
-          />
+          <ContentViewer editorState={dream.content} />
         </CardDescription>
         <div className="flex w-full justify-start items-center gap-2 overflow-hidden">
           {dream.tags.map((tag, index) => (
