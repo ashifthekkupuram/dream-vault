@@ -11,6 +11,7 @@ import { LinkNode } from "@lexical/link";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { $getRoot } from "lexical";
+import DOMPurify from "dompurify";
 
 type Props = {
   editorState: string;
@@ -21,16 +22,15 @@ type Props = {
 function ReadOnlyContentPlugin({ isText }: { isText: boolean }) {
   const [editor] = useLexicalComposerContext();
   const [content, setContent] = useState("");
-
   useEffect(() => {
     editor.getEditorState().read(() => {
-      const content = isText
+      const rawContent = isText
         ? $getRoot().getTextContent()
         : $generateHtmlFromNodes(editor);
+      const content = isText ? rawContent : DOMPurify.sanitize(rawContent);
       setContent(content);
-      console.log(content);
     });
-  }, [editor]);
+  }, [editor, isText]);
 
   return isText ? (
     <div

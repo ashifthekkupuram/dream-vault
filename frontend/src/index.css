@@ -35,13 +35,27 @@
 }
 
 /* 🅰️ Font Size Utility Overrides (toolbar can insert these) */
-.content-viewer .text-sm { @apply text-sm; }
-.content-viewer .text-base { @apply text-base; }
-.content-viewer .text-lg { @apply text-lg; }
-.content-viewer .text-xl { @apply text-xl; }
-.content-viewer .text-2xl { @apply text-2xl; }
-.content-viewer .text-3xl { @apply text-3xl; }
-.content-viewer .text-4xl { @apply text-4xl; }
+.content-viewer .text-sm {
+  @apply text-sm;
+}
+.content-viewer .text-base {
+  @apply text-base;
+}
+.content-viewer .text-lg {
+  @apply text-lg;
+}
+.content-viewer .text-xl {
+  @apply text-xl;
+}
+.content-viewer .text-2xl {
+  @apply text-2xl;
+}
+.content-viewer .text-3xl {
+  @apply text-3xl;
+}
+.content-viewer .text-4xl {
+  @apply text-4xl;
+}
 
 /* 🧱 Headings */
 .content-viewer h1 {
@@ -112,21 +126,18 @@
 }
 
 /* 🌑 Dark Mode Overrides */
-@media (prefers-color-scheme: dark) {
-  .content-viewer {
-    @apply text-neutral-200;
-  }
-  .content-viewer blockquote {
-    @apply border-gray-600 text-gray-300;
-  }
-  .content-viewer a {
-    @apply text-blue-400;
-  }
-  .content-viewer code {
-    @apply bg-gray-800 text-sm;
-  }
+.dark .content-viewer {
+  @apply text-neutral-200;
 }
-
+.dark .content-viewer blockquote {
+  @apply border-gray-600 text-gray-300;
+}
+.dark .content-viewer a {
+  @apply text-blue-400;
+}
+.dark .content-viewer code {
+  @apply bg-gray-800 text-sm;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
