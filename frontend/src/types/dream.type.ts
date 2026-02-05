@@ -16,7 +16,7 @@ export type MoodType =
   | "Curious";
 
 export type DreamType = {
-  id: number;
+  id: string;
   content: string;
   tags: string[];
   isLucid: boolean;

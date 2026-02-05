@@ -13,7 +13,7 @@ const useDreamDelete = () => {
   const { data: session } = authClient.useSession();
   const queryClient = useQueryClient();
 
-  const deleteDream = async (dreamId: number) => {
+  const deleteDream = async (dreamId: string) => {
     setLoading(true);
     setError(null);
     try {

@@ -15,7 +15,7 @@ import {
 import { Button } from "../ui/button";
 
 type PropsType = {
-  dreamId: number;
+  dreamId: string;
 };
 
 const DreamDeleteModal = ({ dreamId }: PropsType) => {

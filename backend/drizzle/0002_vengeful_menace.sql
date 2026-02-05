@@ -1,0 +1,7 @@
+ALTER TABLE "dream"
+ALTER COLUMN "id" DROP IDENTITY IF EXISTS;
+
+ALTER TABLE "dream"
+ALTER COLUMN "id"
+SET DATA TYPE varchar(128)
+USING "id"::varchar;

@@ -128,7 +128,7 @@ const DreamEdit = () => {
   });
 
   const onSubmit = (values: z.infer<typeof dreamScheme>) =>
-    editDream(values, Number(dreamId));
+    editDream(values, String(dreamId));
 
   function handleDateSelect(date: Date | undefined) {
     if (date) {

@@ -7,12 +7,12 @@ import { db } from '../db';
 import { dreamTable, DreamType } from '../db/schema';
 
 const isDreamCreator = asyncHandler(async (req, res, next) => {
-  const id  = Number(req.params.id);
+  const id  = req.params.id;
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(req.headers),
   });
 
-  if (!id || typeof id !== 'number') {
+  if (!id || typeof id !== 'string') {
     return res.status(404).json({
       success: false,
       message: 'Invalid Dream ID',
@@ -22,7 +22,7 @@ const isDreamCreator = asyncHandler(async (req, res, next) => {
   const query: DreamType[] = await db
     .select()
     .from(dreamTable)
-    .where(eq(dreamTable.id, Number(id)));
+    .where(eq(dreamTable.id, id));
 
   const dream: DreamType = query[0];
 

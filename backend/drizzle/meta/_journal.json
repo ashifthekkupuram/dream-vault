@@ -15,6 +15,20 @@
       "when": 1769936044721,
       "tag": "0001_calm_king_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770311340650,
+      "tag": "0002_vengeful_menace",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1770312245588,
+      "tag": "0003_tidy_daredevil",
+      "breakpoints": true
     }
   ]
 }

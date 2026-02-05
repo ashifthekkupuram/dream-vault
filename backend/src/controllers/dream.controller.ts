@@ -25,12 +25,12 @@ export const getDreams = asyncHandler(async (req, res) => {
 });
 
 export const getDream = asyncHandler(async (req, res) => {
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
   const [dream]: DreamType[] = await db
     .select()
     .from(dreamTable)
-    .where(eq(dreamTable.id, id));
+    .where(eq(dreamTable.id, String(id)));
 
   return res.json({
     success: true,
@@ -71,13 +71,13 @@ export const createDream = asyncHandler(async (req, res) => {
 });
 
 export const updateDream = asyncHandler(async (req, res) => {
-  const id = Number(req.params.id);
+  const id = req.params.id;
   const body: DreamBodyType = req.body;
 
   const [updatedDream]: DreamType[] = await db
     .update(dreamTable)
     .set({ ...body, dreamedOn: new Date(body.dreamedOn || new Date()) })
-    .where(eq(dreamTable.id, id))
+    .where(eq(dreamTable.id, String(id)))
     .returning();
 
   if (!updatedDream) {
@@ -95,11 +95,11 @@ export const updateDream = asyncHandler(async (req, res) => {
 });
 
 export const deleteDream = asyncHandler(async (req, res) => {
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
   const [deletedDream]: DreamType[] = await db
     .delete(dreamTable)
-    .where(eq(dreamTable.id, id))
+    .where(eq(dreamTable.id, String(id)))
     .returning();
 
   if (!deletedDream) {

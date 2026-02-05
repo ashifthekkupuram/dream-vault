@@ -6,7 +6,9 @@ import {
   pgEnum,
   index,
   integer,
+  varchar,
 } from 'drizzle-orm/pg-core';
+import { createId } from "@paralleldrive/cuid2"
 
 import { userTable } from './auth';
 import { relations } from 'drizzle-orm';
@@ -40,11 +42,11 @@ export const moodEnum = pgEnum('mood', [
 export const dreamTable = pgTable(
   'dream',
   {
-    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    id: varchar('id', { length: 128 }).primaryKey().$defaultFn(() => createId()),
     content: text('content').notNull(),
     tags: text('tags').array().default([]),
     isLucid: boolean().notNull().default(false),
-    dreamedOn: timestamp().notNull().defaultNow(),
+    dreamedOn: timestamp().defaultNow(),
     mood: moodEnum(),
     emotion: text('emotion').notNull(),
     userId: text('userId')

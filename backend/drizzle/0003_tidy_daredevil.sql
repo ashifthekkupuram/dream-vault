@@ -1,0 +1,1 @@
+ALTER TABLE "dream" ALTER COLUMN "dreamedOn" DROP NOT NULL;
