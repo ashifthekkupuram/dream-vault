@@ -1,3 +1,5 @@
+import type { Control, UseFormReturn } from "react-hook-form";
+
 export type MoodType =
   | "Scary"
   | "Anxious"
@@ -46,3 +48,21 @@ export const EMOJIES: Record<MoodType, string> = {
   Nostalgic: "🌅",
   Curious: "🧐",
 };
+
+export type DreamControlType = Control<{
+  content: string;
+  tags: string[];
+  isLucid: boolean;
+  mood: MoodType;
+  dreamedOn: Date;
+  emotion: string;
+}>;
+
+export type DreamFormType = UseFormReturn<{
+  content: string;
+  tags: string[];
+  isLucid: boolean;
+  mood: MoodType;
+  dreamedOn: Date;
+  emotion: string;
+}>;
