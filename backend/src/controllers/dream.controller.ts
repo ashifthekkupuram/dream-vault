@@ -8,6 +8,10 @@ import { db } from '../db';
 import { DreamBodyType } from '../types/dream.type';
 
 export const getDreams = asyncHandler(async (req, res) => {
+  const { page, limit } = req.query;
+
+  const offset = (Number(page) - 1) * Number(limit);
+
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(req.headers),
   });
@@ -15,7 +19,9 @@ export const getDreams = asyncHandler(async (req, res) => {
   const dreams: DreamType[] = await db
     .select()
     .from(dreamTable)
-    .where(eq(dreamTable.userId, session?.session.userId || ''));
+    .where(eq(dreamTable.userId, session?.session.userId || ''))
+    .limit(Number(limit))
+    .offset(offset);
 
   return res.json({
     success: true,
