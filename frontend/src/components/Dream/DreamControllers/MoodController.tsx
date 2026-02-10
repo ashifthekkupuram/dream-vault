@@ -28,7 +28,7 @@ const MoodController = ({ control, creating = true }: PropsType) => {
           {...field}
           orientation="horizontal"
           data-state={fieldState.invalid}
-          className="max-w-60"
+          className="w-fit gap-4"
         >
           <FieldLabel htmlFor="mood">Mood :</FieldLabel>
           <Select

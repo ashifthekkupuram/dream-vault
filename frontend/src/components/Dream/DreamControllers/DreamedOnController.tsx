@@ -52,6 +52,7 @@ const DreamedOnController = ({ form }: PropsType) => {
           {...field}
           orientation="horizontal"
           data-state={fieldState.invalid}
+          className="w-fit gap-4"
         >
           <FieldLabel>Dreamed On</FieldLabel>
           <Popover>

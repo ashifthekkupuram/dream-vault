@@ -20,7 +20,7 @@ const IsLucidController = ({ control }: PropsType) => {
           {...field}
           orientation="horizontal"
           data-state={fieldState.invalid}
-          className="max-w-25"
+          className="w-fit gap-4"
         >
           <FieldLabel htmlFor="isLucid">is Lucid :</FieldLabel>
           <Checkbox
