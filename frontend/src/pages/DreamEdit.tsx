@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
-import type { SerializedEditorState } from "lexical";
 import { ArrowLeft } from "lucide-react";
 
 import { FieldError, FieldGroup } from "../components/ui/field";
@@ -23,36 +22,6 @@ import MoodController from "../components/Dream/DreamControllers/MoodController"
 import DreamedOnController from "../components/Dream/DreamControllers/DreamedOnController";
 import ContentController from "../components/Dream/DreamControllers/ContentController";
 import EmotionController from "../components/Dream/DreamControllers/EmotionController";
-
-const initialValue = {
-  root: {
-    children: [
-      {
-        children: [
-          {
-            detail: 0,
-            format: 0,
-            mode: "normal",
-            style: "",
-            text: "What have i dreamed today :/",
-            type: "text",
-            version: 1,
-          },
-        ],
-        direction: "ltr",
-        format: "",
-        indent: 0,
-        type: "paragraph",
-        version: 1,
-      },
-    ],
-    direction: "ltr",
-    format: "",
-    indent: 0,
-    type: "root",
-    version: 1,
-  },
-} as unknown as SerializedEditorState;
 
 const DreamEdit = () => {
   const { loading, error: editingError, editDream } = useDreamEdit();
@@ -92,7 +61,7 @@ const DreamEdit = () => {
   const form = useForm<z.infer<typeof dreamScheme>>({
     resolver: zodResolver(dreamScheme),
     defaultValues: {
-      content: JSON.stringify(initialValue),
+      content: "",
       dreamedOn: new Date(),
       emotion: "",
       isLucid: false,
@@ -103,15 +72,6 @@ const DreamEdit = () => {
 
   const onSubmit = (values: z.infer<typeof dreamScheme>) =>
     editDream(values, String(dreamId));
-
-  const disabled =
-    loading ||
-    (form.getValues("content") === dream.content &&
-      new Date(form.getValues("dreamedOn")) === new Date(dream.dreamedOn) &&
-      form.getValues("emotion") === dream.emotion &&
-      form.getValues("isLucid") === dream.isLucid &&
-      form.getValues("mood") === dream.mood &&
-      form.getValues("tags") === dream.tags);
 
   return (
     <div className="container mx-auto">
@@ -146,15 +106,15 @@ const DreamEdit = () => {
             {/* Is Lucid Field */}
             <IsLucidController control={form.control} />
             {/* Mood Field  */}
-            <MoodController control={form.control} creating={false} />
+            <MoodController control={form.control} />
             {/* Dreamed On Field */}
             <DreamedOnController form={form} />
             {editingError && (
               <FieldError errors={[{ message: editingError }]} />
             )}
           </FieldGroup>
-          <Button disabled={disabled} className="mt-6" type="submit">
-            Edit Dream
+          <Button disabled={loading} className="mt-6" type="submit">
+            {loading ? "Editing Dream..." : "Edit Dream"}
           </Button>
         </form>
       ) : (

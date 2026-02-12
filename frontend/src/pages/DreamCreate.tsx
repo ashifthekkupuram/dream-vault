@@ -2,7 +2,6 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { SerializedEditorState } from "lexical";
 import { ArrowLeft } from "lucide-react";
 
 import { FieldError, FieldGroup } from "../components/ui/field";
@@ -18,36 +17,6 @@ import MoodController from "../components/Dream/DreamControllers/MoodController"
 import DreamedOnController from "../components/Dream/DreamControllers/DreamedOnController";
 import ContentController from "../components/Dream/DreamControllers/ContentController";
 
-const initialValue = {
-  root: {
-    children: [
-      {
-        children: [
-          {
-            detail: 0,
-            format: 0,
-            mode: "normal",
-            style: "",
-            text: "What have i dreamed today :/",
-            type: "text",
-            version: 1,
-          },
-        ],
-        direction: "ltr",
-        format: "",
-        indent: 0,
-        type: "paragraph",
-        version: 1,
-      },
-    ],
-    direction: "ltr",
-    format: "",
-    indent: 0,
-    type: "root",
-    version: 1,
-  },
-} as unknown as SerializedEditorState;
-
 const DreamCreate = () => {
   const { loading, error, createDream } = useDreamCreate();
 
@@ -56,7 +25,7 @@ const DreamCreate = () => {
   const form = useForm<z.infer<typeof dreamScheme>>({
     resolver: zodResolver(dreamScheme),
     defaultValues: {
-      content: JSON.stringify(initialValue),
+      content: "",
       dreamedOn: new Date(),
       emotion: "",
       isLucid: false,
@@ -93,7 +62,7 @@ const DreamCreate = () => {
           {error && <FieldError errors={[{ message: error }]} />}
         </FieldGroup>
         <Button disabled={loading} className="mt-6" type="submit">
-          Create Dream
+          {loading ? "Creating Dream..." : "Create Dream"}
         </Button>
       </form>
     </div>

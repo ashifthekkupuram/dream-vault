@@ -1,5 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+/* Show scrollbar even when select is using (To stop breaking layout) */
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
+}
+
+/* Optional: Make sure prose doesn't override too aggressively */
+.prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  font-size: inherit;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -14,129 +26,6 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
-}
-
-/* Container class for rich text output */
-/* 🌐 General defaults */
-.content-viewer {
-  @apply font-sans text-base leading-relaxed;
-}
-
-/* 🔡 Font Families */
-/* Editor toolbar may insert classes like font-serif or font-mono */
-.content-viewer .font-sans {
-  @apply font-sans;
-}
-.content-viewer .font-serif {
-  @apply font-serif;
-}
-.content-viewer .font-mono {
-  @apply font-mono;
-}
-
-/* 🅰️ Font Size Utility Overrides (toolbar can insert these) */
-.content-viewer .text-sm {
-  @apply text-sm;
-}
-.content-viewer .text-base {
-  @apply text-base;
-}
-.content-viewer .text-lg {
-  @apply text-lg;
-}
-.content-viewer .text-xl {
-  @apply text-xl;
-}
-.content-viewer .text-2xl {
-  @apply text-2xl;
-}
-.content-viewer .text-3xl {
-  @apply text-3xl;
-}
-.content-viewer .text-4xl {
-  @apply text-4xl;
-}
-
-/* 🧱 Headings */
-.content-viewer h1 {
-  @apply text-4xl font-bold mt-6 mb-4;
-}
-.content-viewer h2 {
-  @apply text-3xl font-semibold mt-5 mb-3;
-}
-.content-viewer h3 {
-  @apply text-2xl font-semibold mt-4 mb-2;
-}
-.content-viewer h4 {
-  @apply text-xl font-semibold mt-3 mb-2;
-}
-.content-viewer h5 {
-  @apply text-lg font-semibold mt-2 mb-1.5;
-}
-.content-viewer h6 {
-  @apply text-base font-semibold mt-2 mb-1;
-}
-
-/* 📝 Paragraphs */
-.content-viewer p {
-  @apply mb-4;
-}
-
-/* 📋 Lists */
-.content-viewer ul,
-.content-viewer ol {
-  @apply list-inside ml-5 mb-4;
-}
-.content-viewer li {
-  @apply mb-1;
-}
-
-/* 🗣 Blockquote */
-.content-viewer blockquote {
-  @apply border-l-4 border-gray-300 pl-4 italic text-gray-700 mb-4;
-}
-
-/* 🔗 Links */
-.content-viewer a {
-  @apply text-blue-600 underline;
-}
-
-/* 💻 Inline code */
-.content-viewer code {
-  @apply bg-gray-100 text-sm px-1 rounded font-mono;
-}
-
-/* 🖼 Images */
-.content-viewer img {
-  @apply block max-w-full h-auto my-4;
-}
-
-/* 🧭 Text alignment (left, center, right, justify) */
-.content-viewer .text-left {
-  @apply text-left;
-}
-.content-viewer .text-center {
-  @apply text-center;
-}
-.content-viewer .text-right {
-  @apply text-right;
-}
-.content-viewer .text-justify {
-  @apply text-justify;
-}
-
-/* 🌑 Dark Mode Overrides */
-.dark .content-viewer {
-  @apply text-neutral-200;
-}
-.dark .content-viewer blockquote {
-  @apply border-gray-600 text-gray-300;
-}
-.dark .content-viewer a {
-  @apply text-blue-400;
-}
-.dark .content-viewer code {
-  @apply bg-gray-800 text-sm;
 }
 
 @theme inline {

@@ -3,6 +3,8 @@ import { AxiosError } from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Pencil } from "lucide-react";
 import { format } from "date-fns";
+import dompurify from "dompurify";
+
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Spinner } from "../components/ui/spinner";
@@ -10,7 +12,7 @@ import { Spinner } from "../components/ui/spinner";
 import { EMOJIES, type MoodType } from "../types/dream.type";
 import { UseAuthenticatedAxios } from "../api/axios";
 import { cn } from "../lib/utils";
-import ContentViewer from "../components/ContentViewer";
+import { Separator } from "../components/ui/separator";
 
 const DreamView = () => {
   const { dreamId } = useParams();
@@ -108,8 +110,14 @@ const DreamView = () => {
               {format(dream.dreamedOn, "do MMMM yyyy, hh:mm aa")}
             </span>
           </span>
+          <Separator className="my-5" />
           {/* Showing Content */}
-          <ContentViewer editorState={dream.content} inText={false} />
+          <div
+            className="prose prose-neutral dark:prose-invert prose-sm sm:prose-base lg:prose-lg"
+            dangerouslySetInnerHTML={{
+              __html: dompurify.sanitize(dream.content),
+            }}
+          />
         </div>
       ) : (
         <div className="flex justify-center items-center w-full mt-10 capitalize text-xl font-light">

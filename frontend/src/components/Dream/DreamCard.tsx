@@ -12,8 +12,8 @@ import {
 
 import type { DreamType } from "../../types/dream.type";
 import DreamDeleteModal from "./DreamDeleteModal";
+import HTMLTagsRemover from "../../utils/html-tags-remover";
 import { EMOJIES } from "../../types/dream.type";
-import ContentViewer from "../ContentViewer";
 
 const DreamCard = (dream: DreamType) => {
   const navigate = useNavigate();
@@ -48,7 +48,9 @@ const DreamCard = (dream: DreamType) => {
       </CardContent>
       <CardHeader>
         <CardDescription>
-          <ContentViewer editorState={dream.content} />
+          <div className="line-clamp-2 font-medium text-sm">
+            {HTMLTagsRemover(dream.content)}
+          </div>
         </CardDescription>
         <div className="flex w-full justify-start items-center gap-2 overflow-hidden">
           {dream.tags.map((tag, index) => (

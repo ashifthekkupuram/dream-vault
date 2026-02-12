@@ -15,10 +15,9 @@ import type { DreamControlType } from "../../../types/dream.type";
 
 type PropsType = {
   control: DreamControlType;
-  creating?: boolean;
 };
 
-const MoodController = ({ control, creating = true }: PropsType) => {
+const MoodController = ({ control }: PropsType) => {
   return (
     <Controller
       name="mood"
@@ -37,7 +36,7 @@ const MoodController = ({ control, creating = true }: PropsType) => {
           >
             <SelectTrigger>
               <SelectValue
-                placeholder={creating ? "Please select a mood" : field.value}
+                placeholder={field.value ? field.value : "Please select a mood"}
               />
             </SelectTrigger>
             <SelectContent id="mood">

@@ -1,17 +1,9 @@
 import { Controller } from "react-hook-form";
 
-import { Editor } from "../../blocks/editor-00/editor";
-import { Field, FieldError } from "../../ui/field";
+import { Field, FieldError, FieldLabel } from "../../ui/field";
 
 import type { DreamControlType } from "../../../types/dream.type";
-
-const parseEditorState = (value: string) => {
-  try {
-    return value ? JSON.parse(value) : null;
-  } catch (_) {
-    return null;
-  }
-};
+import TipTap from "../../TipTap";
 
 type PropsType = {
   control: DreamControlType;
@@ -24,12 +16,8 @@ const ContentController = ({ control }: PropsType) => {
       control={control}
       render={({ field, fieldState }) => (
         <Field data-state={fieldState.invalid}>
-          <Editor
-            editorSerializedState={parseEditorState(field.value)}
-            onSerializedChange={(value) =>
-              field.onChange(JSON.stringify(value))
-            }
-          />
+          <FieldLabel>Content</FieldLabel>
+          <TipTap value={field.value} onChange={field.onChange} />
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
       )}

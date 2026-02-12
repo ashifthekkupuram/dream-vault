@@ -1,5 +1,7 @@
 import z from "zod";
 
+import HTMLTagsRemover from "../utils/html-tags-remover";
+
 export const MoodsEnum = z.enum(
   [
     "Scary",
@@ -22,7 +24,10 @@ export const MoodsEnum = z.enum(
 );
 
 export const dreamScheme = z.object({
-  content: z.string().min(100, "Minimum 100 Characters required"),
+  content: z.string().refine((value) => {
+    const refinedValue = HTMLTagsRemover(value);
+    return refinedValue.length >= 100;
+  }, "Minimum 100 Characters required"),
   tags: z.string().array().min(1, "Minimum 1 tag is required"),
   isLucid: z.boolean(),
   mood: MoodsEnum,
