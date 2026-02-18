@@ -35,6 +35,7 @@ const TipTap = ({ value, onChange }: PropsType) => {
     content: value,
     onCreate({ editor }) {
       editor.commands.setFontSize("18px");
+      editor.commands.setFontFamily("Inter, system-ui, sans-serif");
     },
     onUpdate({ editor }) {
       onChange(editor.getHTML());

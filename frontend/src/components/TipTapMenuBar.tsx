@@ -18,6 +18,47 @@ import { menuBarStateSelector } from "../lib/tip-tap-menu-state";
 
 const sizes = ["12px", "14px", "16px", "18px", "20px", "24px", "32px"];
 
+const FONT_FAMILIES = [
+  { name: "Inter", value: "Inter, system-ui, sans-serif" },
+  { name: "Manrope", value: "Manrope, system-ui, sans-serif" },
+  { name: "Satoshi", value: "'Satoshi', system-ui, -apple-system, sans-serif" },
+  { name: "Geist", value: "Geist, system-ui, sans-serif" },
+  {
+    name: "SF Pro",
+    value: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  },
+  { name: "Playfair Display", value: "'Playfair Display', Georgia, serif" },
+  { name: "Merriweather", value: "Merriweather, Georgia, serif" },
+  { name: "Crimson Text", value: "'Crimson Text', Georgia, serif" },
+  { name: "Libre Baskerville", value: "'Libre Baskerville', Georgia, serif" },
+  {
+    name: "Cabinet Grotesk",
+    value: "'Cabinet Grotesk', system-ui, sans-serif",
+  },
+  {
+    name: "Neue Haas Grotesk",
+    value: "'Neue Haas Grotesk', Helvetica, Arial, sans-serif",
+  },
+  { name: "GT Walsheim", value: "'GT Walsheim', system-ui, sans-serif" },
+  { name: "Clash Display", value: "'Clash Display', system-ui, sans-serif" },
+  { name: "General Sans", value: "'General Sans', system-ui, sans-serif" },
+  { name: "Supreme", value: "Supreme, system-ui, sans-serif" },
+  { name: "PP Neue Bit", value: "'PP Neue Bit', monospace" },
+  {
+    name: "Monument Extended",
+    value: "'Monument Extended', system-ui, sans-serif",
+  },
+  {
+    name: "System Mono",
+    value: "ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace",
+  },
+  {
+    name: "Nice Sans",
+    value:
+      "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  },
+];
+
 type PropsType = {
   editor: Editor | null;
 };
@@ -25,6 +66,9 @@ type PropsType = {
 const TipTapMenuBar = ({ editor }: PropsType) => {
   const [block, setBlock] = useState<string>("paragraph");
   const [fontSize, setFontSize] = useState<string>("18px");
+  const [fontFamily, setFontFamily] = useState<{ name: string; value: string }>(
+    { name: "Inter", value: "Inter" },
+  );
 
   const editorState = useEditorState({
     editor: editor!,
@@ -53,6 +97,11 @@ const TipTapMenuBar = ({ editor }: PropsType) => {
     setFontSize(value);
   };
 
+  const onFontFamilyChange = (font: { name: string; value: string }) => {
+    editor?.chain().focus().setFontFamily(font.value).run();
+    setFontFamily(font);
+  };
+
   useEffect(() => {
     if (editorState.isParagraph) setBlock("paragraph");
     if (editorState.isHeading1) setBlock("heading1");
@@ -68,6 +117,15 @@ const TipTapMenuBar = ({ editor }: PropsType) => {
   useEffect(() => {
     if (editorState.fontSize) setFontSize(editorState.fontSize);
   }, [editorState.fontSize]);
+
+  useEffect(() => {
+    console.log(editorState.fontFamily);
+    const value = editorState.fontFamily;
+    if (editorState.fontFamily) {
+      const font = FONT_FAMILIES.find((f) => f.value === value);
+      if (font) setFontFamily(font);
+    }
+  }, [editorState.fontFamily]);
 
   return (
     <div
@@ -99,6 +157,34 @@ const TipTapMenuBar = ({ editor }: PropsType) => {
             {sizes.map((size) => (
               <SelectItem key={size} value={size}>
                 {size}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      {/* Selecting Font Family */}
+      <Select
+        value={fontFamily.value}
+        onValueChange={(value) => {
+          const font = FONT_FAMILIES.find((f) => f.value === value);
+          if (font) onFontFamilyChange(font);
+        }}
+      >
+        <SelectTrigger>
+          <SelectValue
+            style={{ fontFamily: fontFamily.value }}
+            placeholder={fontFamily.name}
+          />
+        </SelectTrigger>
+        <SelectContent className="transition-all">
+          <SelectGroup>
+            {FONT_FAMILIES.map((family) => (
+              <SelectItem
+                style={{ fontFamily: family.value }}
+                key={family.name}
+                value={family.value}
+              >
+                {family.name}
               </SelectItem>
             ))}
           </SelectGroup>

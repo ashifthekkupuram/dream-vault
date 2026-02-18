@@ -20,6 +20,7 @@ export function menuBarStateSelector(ctx: EditorStateSnapshot<Editor>) {
 
     // Font Styles
     fontSize: ctx.editor.getAttributes("textStyle").fontSize ?? false,
+    fontFamily: ctx.editor.getAttributes("textStyle").fontFamily ?? false,
 
     // Block types
     isParagraph: ctx.editor.isActive("paragraph") ?? false,
